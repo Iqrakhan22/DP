@@ -1,56 +1,71 @@
 package ZeroOneKnapSack;
 
 public class _4minSubsetSumDifference {
-    public static int subsetDifference(int[] weight, int sum, int size){
+    public static int dpSubsetSum(int[] weight, boolean[][]t, int sum,int size){
+        t[0][0] = true;
+        for(int i = 1; i < sum+1; i++)
+            t[0][i] = false;
+        for (int i = 1; i < size + 1; i++) {
+            for (int j = 0; j < sum + 1; j++) {
+                if(j == 0){
+                    t[i][j] = true;
+                }
+                else if (weight[i - 1] <= j){
+                    t[i][j] = t[i-1][j - weight[i-1]] || t[i-1][j];
+                }
+                else {
+                    t[i][j] = t[i-1][j];
+                }
+            }
+        }
+        int len = ((sum));
+        int[] res = new int[len];
 
-        if (size == 0 || sum == 0){
-            return 0;
+        for (int j = 0 ; j < len ; j++){
+            if (t[size][j] == true){
+                res[j] = j;
+            }
         }
-        else if (weight[size-1] <= sum){
-            return Math.max(weight[size-1]+subsetDifference(weight,sum-weight[size-1],size-1),
-                            subsetDifference(weight,sum,size-1));
+        for (int j = 0 ; j < len ; j++){
+            System.out.print(res[j] + ",");
         }
-        else {
-            return subsetDifference(weight,sum,size-1);
+//        int min = 0;
+//        for (int i=0; i < res.length; i++){
+//            min = Math.max(min, res[i]);
+//        }
+        int min = Integer.MAX_VALUE;
+//        System.out.println(min);
+
+        for (int i=0; i < res.length; i++){
+            min = Math.min(min, Math.abs( sum -(2 *res[i]) ));
+            if (min == 0){
+                return min;
+            }
         }
+        return min;
     }
-
     public static void main(String[] args) {
-//        int[] weight = {1,6,11,5,25,10,22,1};
-        int [] weight = {1,2,42,79,24,9};
+        int[] weight = {-36,36};
+        int sum = 0;
         int size = weight.length;
-        int addition =0;
-        for (int i=0; i < weight.length; i++){
-            addition = addition + weight[i];
+
+        for (int i:weight){
+            sum += i;
         }
-        int sum = addition/2;
-//        System.out.println(sum);
-        int[][] t = new int[size+1][sum+1];
+        boolean[][] t = new boolean[size + 1][sum + 1];
+
         for (int i=0;i<size+1;i++) {
             for (int j = 0; j < sum + 1; j++) {
-                t[i][j] = -1;
+                t[i][j] = false;
             }
         }
+        System.out.println(dpSubsetSum(weight, t, sum, size));
 
-//        System.out.println(subsetDifference(weight, sum, size));
-        int num1 = subsetDifference(weight, sum, size);
-
-        for (int i=0;i<addition/2;i++){
-            if (sum == num1){
-                int num2 = addition - num1;
-//                System.out.println(num2 + "," + num1);
-                System.out.println("Minimum difference is : " + Math.abs(num1-num2));
-                break;
-            }
-            else if(sum != num1){
-                sum +=1;
-//                System.out.println(sum);
-                num1 = (subsetDifference(weight, sum, size));
-//                System.out.println(num1);
-            }
-        }
-
-
-
+//        for (int i=0;i<size+1;i++) {
+//            for (int j = 0; j < sum + 1; j++) {
+//                System.out.print(t[i][j] + ",");
+//            }
+//            System.out.println(" ");
+//        }
     }
 }
