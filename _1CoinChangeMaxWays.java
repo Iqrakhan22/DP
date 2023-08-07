@@ -1,6 +1,6 @@
 package UnboundedKnapsack;
 
-public class CoinChangeMaxWays {
+public class _1CoinChangeMaxWays {
     public static int coinChangeRecursive(int[] coin, int sum, int size){
         if (sum == 0) {
             return 1;
