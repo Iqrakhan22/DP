@@ -1,6 +1,6 @@
 package LongestCommonSubsequence;
 
-public class PrintLCSubsequence {
+public class _3PrintLCSubsequence {
     public static String subsequence(String s1, String s2, int[][] t, int len1, int len2){
         String str = "";
         for (int i=0; i < len1+1; i++){
