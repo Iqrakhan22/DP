@@ -1,6 +1,6 @@
 package LongestCommonSubsequence;
 
-public class LCSubstringImplementation {
+public class _2LCSubstringImplementation {
     static int LCSubstringRecursion(String s1, String s2, int len1, int len2, int count){
 
         if (len1 == 0 || len2 == 0) {
