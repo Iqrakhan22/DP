@@ -1,6 +1,6 @@
 package LongestCommonSubsequence;
 
-public class ImplementationLCS {
+public class _1ImplementationLCS {
     public static int recursiveLCS(String s1, String s2, int len1, int len2){
         if (len1 == 0 || len2==0){
             return 0;
